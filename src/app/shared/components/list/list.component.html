@@ -1,3 +1,24 @@
-<p>
-  list works!
-</p>
+<ul class="news-list">
+  <ng-container *ngTemplateOutlet="headerListItem"></ng-container>
+  <li class="reg-list-item" *ngFor="let item of _items">
+    <ng-container *ngTemplateOutlet="regListItem;context: {item: item}"></ng-container>
+  </li>
+</ul>
+
+
+<ng-template #headerListItem>
+    <li class="header-list-item">
+      <span class="col1">Comments</span>
+      <span class="col2">Vote Count</span>
+      <span class="col3">UpVote</span>
+      <span class="col4">News Details</span>
+    </li>
+</ng-template>
+<ng-template #regListItem let-item="item">
+    <span class="col1">{{item.num_comments}}</span>
+    <span class="col2">{{item.points}}</span>
+    <span class="col3">
+      <fa-icon [icon]="faSortUp" class="vote-icon" (click)="upVote(item, $event)"></fa-icon>
+    </span>
+    <span class="col4" [innerHTML]="getDetails(item)"></span>
+</ng-template>
